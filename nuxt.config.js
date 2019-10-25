@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['./plugins/mixins/user'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -42,13 +42,67 @@ export default {
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // Doc: https://auth.nuxtjs.org/
+    '@nuxtjs/auth',
+    // GitHub: https://github.com/nuxt-community/style-resources-module
+    '@nuxtjs/style-resources',
+    'nuxt-fontawesome'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://clansquare_new.test',
+    // host: 'clansquare_new.test',
+    // prefix: 'api/',
+    // https: true,
+    progress: true
+  },
+  /*
+   ** Auth module configuration
+   ** See https://auth.nuxtjs.org/schemes/local.html#usage
+   */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/auth/login',
+            method: 'post',
+            propertyName: 'meta.token'
+          },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/me', method: 'get', propertyName: 'data' }
+        },
+        // tokenRequired: true,
+        tokenType: 'bearer'
+      }
+    }
+  },
+  styleResources: {
+    scss: ['./assets/*.scss']
+  },
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons', // Solid icons
+        icons: ['faEnvelope', 'faHeart', 'faLock']
+      },
+      {
+        set: '@fortawesome/free-brands-svg-icons', // Brand icons
+        icons: [
+          'faDev',
+          'faFacebook',
+          'faTwitter',
+          'faInstagram',
+          'faYoutube',
+          'faGithub'
+        ]
+      }
+    ]
+  },
   /*
    ** Build configuration
    */
