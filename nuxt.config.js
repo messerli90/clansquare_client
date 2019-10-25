@@ -27,7 +27,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['./plugins/mixins/user'],
+  plugins: [
+    './plugins/mixins/user',
+    './plugins/axios.js',
+    './plugins/mixins/validation'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -50,11 +54,18 @@ export default {
     'nuxt-fontawesome'
   ],
   /*
+   **  Register middleware and routes
+   **
+   */
+  router: {
+    middleware: ['clearValidationErrors']
+  },
+  /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://clansquare_new.test',
+    baseURL: 'https://clansquare_new.test/api',
     // host: 'clansquare_new.test',
     // prefix: 'api/',
     // https: true,
@@ -69,17 +80,26 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: '/api/auth/login',
+            url: '/auth/login',
             method: 'post',
             propertyName: 'meta.token'
           },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/me', method: 'get', propertyName: 'data' }
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/me', method: 'get', propertyName: 'data' }
         },
-        // tokenRequired: true,
+        tokenRequired: true,
         tokenType: 'bearer'
       }
-    }
+    },
+    redirect: {
+      login: '/auth/signin',
+      logout: '/',
+      home: '/',
+      callback: '/'
+    },
+    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+    watchLoggedIn: true,
+    rewriteRedirects: true
   },
   styleResources: {
     scss: ['./assets/*.scss']

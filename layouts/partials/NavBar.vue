@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <a class="navbar-item" href="/">
         <img
           src="https://bulma.io/images/bulma-logo.png"
           width="112"
@@ -42,32 +42,46 @@
       </div>
 
       <div class="navbar-end">
-        <div v-if="!authenticated" class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <n-link to="/auth/signin" class="button is-light">
-              Log In
-            </n-link>
+        <template v-if="!authenticated">
+          <div class="navbar-item">
+            <div class="buttons">
+              <n-link to="/auth/signup" class="button is-primary">
+                Sign Up
+              </n-link>
+              <n-link to="/auth/signin" class="button is-light">
+                Log In
+              </n-link>
+            </div>
           </div>
-        </div>
-        <div v-else class="navbar-item">
-          {{ user.name }}
-        </div>
+        </template>
+        <template v-if="authenticated">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="/" class="button is-text">
+                {{ user.name }}
+              </a>
+              <a class="button is-light" @click.prevent="logout">
+                Sign Out
+              </a>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="navbar-item">
+            <div class="buttons"></div>
+          </div>
+        </template>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  components: {
-    ...mapGetters({
-      loggedIn: 'auth/authenticated'
-    })
+  methods: {
+    logout() {
+      this.$auth.logout()
+    }
   }
 }
 </script>

@@ -13,7 +13,7 @@
                     :class="{ 'is-danger': errors.email }"
                     type="email"
                     class="input"
-                    placeholder="e.g. john@gmail.com"
+                    placeholder="e.g. johnwick@gmail.com"
                   />
                   <span class="icon is-left">
                     <Fas i="envelope" classes="is-small" />
@@ -22,7 +22,23 @@
                 <ValidationErrorHelper :error-bag="errors" field="email" />
               </div>
               <div class="field">
-                <label for class="label">Password</label>
+                <label for="name" class="label">Username</label>
+                <div class="control has-icons-left">
+                  <input
+                    v-model="form.name"
+                    :class="{ 'is-danger': errors.name }"
+                    type="text"
+                    class="input"
+                    placeholder="e.g. JohnWick"
+                  />
+                  <span class="icon is-left">
+                    <Fas i="envelope" classes="is-small" />
+                  </span>
+                </div>
+                <ValidationErrorHelper :error-bag="errors" field="name" />
+              </div>
+              <div class="field">
+                <label for="password" class="label">Password</label>
                 <div class="control has-icons-left">
                   <input
                     v-model="form.password"
@@ -38,8 +54,25 @@
                 <ValidationErrorHelper :error-bag="errors" field="password" />
               </div>
               <div class="field">
+                <label for="password_confirmation" class="label">
+                  Confirm Password
+                </label>
+                <div class="control has-icons-left">
+                  <input
+                    v-model="form.password_confirmation"
+                    :class="{ 'is-danger': errors.password_confirmation }"
+                    type="password"
+                    placeholder="*******"
+                    class="input"
+                  />
+                  <span class="icon is-small is-left">
+                    <Fas i="lock" classes="is-small" />
+                  </span>
+                </div>
+              </div>
+              <div class="field">
                 <button class="button is-success">
-                  Login
+                  Register
                 </button>
               </div>
             </form>
@@ -53,6 +86,7 @@
 <script>
 import Fas from '~/components/fonts/Fas'
 import ValidationErrorHelper from '~/components/validation/ValidationErrorHelper'
+
 export default {
   auth: 'guest',
   components: { Fas, ValidationErrorHelper },
@@ -60,21 +94,29 @@ export default {
     return {
       form: {
         email: '',
-        password: ''
+        username: '',
+        password: '',
+        password_confirmation: ''
       }
     }
   },
   methods: {
-    async submit() {
-      await this.$auth
-        .loginWith('local', {
-          data: this.form
+    submit() {
+      this.$axios
+        .post('auth/register', this.form)
+        .then((res) => {
+          this.$auth
+            .loginWith('local', {
+              data: this.form
+            })
+            .then((_) => {
+              this.$router.push({
+                path: '/' // TODO redirect to intended location
+              })
+            })
+            .catch((_) => {})
         })
         .catch((_) => {})
-
-      // this.$router.push({
-      //   path: '/' // TODO redirect to intended location
-      // })
     }
   }
 }
