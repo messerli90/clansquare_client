@@ -1,3 +1,8 @@
 export default function({ store }) {
-  store.dispatch('validation/clearErrors')
+  const errorsEmpty =
+    Object.entries(store.state.validation.errors).length === 0 &&
+    store.state.validation.errors.constructor === Object
+  if (!errorsEmpty) {
+    store.dispatch('validation/clearErrors')
+  }
 }

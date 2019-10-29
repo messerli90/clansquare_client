@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
         <img
@@ -8,13 +8,13 @@
           height="28"
         />
       </a>
-
       <a
         role="button"
         class="navbar-burger burger"
         aria-label="menu"
         aria-expanded="false"
-        data-target="navbarBasicExample"
+        data-target="mainNavBar"
+        @click.prevent="openMobileNav"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -22,23 +22,15 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="mainNavBar" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">Home</a>
+        <n-link to="/" class="navbar-item">
+          Home
+        </n-link>
 
-        <a class="navbar-item">Documentation</a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">More</a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item">About</a>
-            <a class="navbar-item">Jobs</a>
-            <a class="navbar-item">Contact</a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item">Report an issue</a>
-          </div>
-        </div>
+        <n-link to="/communities" class="navbar-item">
+          Communities
+        </n-link>
       </div>
 
       <div class="navbar-end">
@@ -81,6 +73,10 @@ export default {
   methods: {
     logout() {
       this.$auth.logout()
+    },
+    openMobileNav() {
+      document.querySelector('.navbar-burger').classList.toggle('is-active')
+      document.querySelector('#mainNavBar').classList.toggle('is-active')
     }
   }
 }

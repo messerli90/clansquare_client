@@ -23,7 +23,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['bulma', '@/assets/scss/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -91,15 +91,18 @@ export default {
         tokenType: 'bearer'
       }
     },
+    token: {
+      prefix: '_ctoken.'
+    },
+    localStorage: {
+      prefix: 'auth.'
+    },
     redirect: {
       login: '/auth/signin',
       logout: '/',
-      home: '/',
+      home: '/dashboard',
       callback: '/'
-    },
-    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
-    watchLoggedIn: true,
-    rewriteRedirects: true
+    }
   },
   styleResources: {
     scss: ['./assets/*.scss']
