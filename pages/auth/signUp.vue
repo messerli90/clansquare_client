@@ -120,7 +120,7 @@ export default {
             })
             .then((_) => {
               this.$router.push({
-                path: '/' // TODO redirect to intended location
+                path: '/dashboard/welcome'
               })
             })
             .catch((_) => {
