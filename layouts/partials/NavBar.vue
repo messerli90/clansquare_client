@@ -43,9 +43,9 @@
           </div>
         </template>
         <template v-if="authenticated">
-          <a href="/" class="navbar-item">
+          <nuxt-link to="/dashboard" class="navbar-item">
             {{ user.name }}
-          </a>
+          </nuxt-link>
           <div class="navbar-item">
             <div class="buttons">
               <a class="button is-light" @click.prevent="logout">

@@ -5,8 +5,8 @@
         <div class="columns is-centered">
           <div class="column is-9-tablet is-8-desktop is-7-widescreen">
             <div class="box">
-              <OnboardingWelcome v-show="step == 1"></OnboardingWelcome>
-              <OnboardingPlayerProfile v-show="step == 2">
+              <OnboardingWelcome v-show="step == 'welcome'"></OnboardingWelcome>
+              <OnboardingPlayerProfile v-show="step == 'playerProfile'">
               </OnboardingPlayerProfile>
             </div>
             <p class="is-small has-text-centered">
@@ -33,21 +33,9 @@ export default {
     step: 'onboarding/get_step',
     player: 'onboarding/get_player'
   }),
-  data() {
-    return {
-      page: 1
-    }
-  },
   async fetch({ store, _ }) {
     await store.dispatch('platforms/fetchPlatforms')
     await store.dispatch('regions/fetchRegions')
-  },
-  methods: {
-    nextPage() {
-      // increment page
-      this.page++
-      // animate transition
-    }
   }
 }
 </script>

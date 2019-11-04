@@ -26,7 +26,10 @@ export default {
   props: {
     classes: {
       type: String,
-      required: false
+      required: false,
+      default: () => {
+        return ''
+      }
     },
     store: {
       type: String,

@@ -1,16 +1,16 @@
 export const state = () => ({
-  COMMUNITIES_LIST: []
+  all: []
 })
 
 export const mutations = {
   SET_COMMUNITIES(state, communities) {
-    state.COMMUNITIES_LIST = communities
+    state.all = communities
   }
 }
 
 export const getters = {
   GET_COMMUNITIES(state) {
-    return state.COMMUNITIES_LIST
+    return state.all
   }
 }
 

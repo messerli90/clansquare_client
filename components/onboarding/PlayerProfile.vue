@@ -37,9 +37,12 @@
       ></RegionSelect>
     </div>
     <div class="player_profile">
-      <button class="button is-large is-primary">
+      <button class="button is-large is-primary" @click.prevent="nextStep">
         Next Step
       </button>
+      <a @click.prevent="back" class="is-small">
+        Back
+      </a>
     </div>
   </div>
 </template>
@@ -48,12 +51,25 @@
 import PlatformSelect from '../meta/PlatformSelect'
 import RegionSelect from '../meta/RegionSelect'
 export default {
-  components: { PlatformSelect, RegionSelect }
+  components: { PlatformSelect, RegionSelect },
+  methods: {
+    back() {
+      this.$store.commit('onboarding/set_step', 'welcome')
+    },
+    nextStep() {
+      // Save changes to API
+      // Next page
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .onboarding__player_profile {
+  .title {
+    font-size: 2.6rem;
+    line-height: 1.25;
+  }
   .player_profile {
     display: flex;
     justify-content: center;

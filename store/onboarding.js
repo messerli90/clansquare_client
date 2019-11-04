@@ -1,5 +1,5 @@
 export const state = () => ({
-  step: 1,
+  step: 'welcome',
   player: {
     platform: null,
     region: null
