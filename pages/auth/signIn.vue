@@ -74,15 +74,19 @@ export default {
   },
   methods: {
     async submit() {
-      await this.$auth
+      const authenticated = await this.$auth
         .loginWith('local', {
           data: this.form
         })
-        .catch((_) => {})
+        .catch((err) => {
+          console.error(err.message)
+        })
 
-      // this.$router.push({
-      //   path: '/' // TODO redirect to intended location
-      // })
+      if (authenticated) {
+        this.$router.push({
+          path: '/' // TODO redirect to intended location
+        })
+      }
     }
   }
 }

@@ -28,8 +28,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    './plugins/mixins/user',
     './plugins/axios.js',
+    './plugins/mixins/user',
     './plugins/mixins/validation'
   ],
   /*
@@ -65,10 +65,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://clansquare_new.test/api',
+    baseURL: 'https://d1fc2496.ngrok.io/api',
     // host: 'clansquare_new.test',
     // prefix: 'api/',
-    // https: true,
+    https: true,
     progress: true
   },
   /*
@@ -111,7 +111,7 @@ export default {
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons', // Solid icons
-        icons: ['faEnvelope', 'faHeart', 'faLock']
+        icons: ['faEnvelope', 'faHeart', 'faLock', 'faGamepad']
       },
       {
         set: '@fortawesome/free-brands-svg-icons', // Brand icons

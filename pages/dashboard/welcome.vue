@@ -5,16 +5,15 @@
         <div class="columns is-centered">
           <div class="column is-9-tablet is-8-desktop is-7-widescreen">
             <div class="box">
-              <h1 class="title has-text-centered">
-                Welcome
-              </h1>
-              <h2 class="subtitle has-text-centered">
-                Let's setup your profile
-              </h2>
-              <form action="#" @submit.prevent="submit"></form>
+              <OnboardingWelcome v-show="page == 1"></OnboardingWelcome>
+              <OnboardingPlayerProfile v-show="page == 2">
+              </OnboardingPlayerProfile>
             </div>
             <p class="is-small has-text-centered">
-              You can <nuxt-link to="/dashboard">skip</nuxt-link>
+              You can
+              <nuxt-link to="/dashboard">
+                skip
+              </nuxt-link>
               this step and go straight to your profile
             </p>
           </div>
@@ -25,9 +24,24 @@
 </template>
 
 <script>
+import OnboardingWelcome from '~/components/onboarding/Welcome'
+import OnboardingPlayerProfile from '~/components/onboarding/PlayerProfile'
 export default {
+  components: { OnboardingPlayerProfile, OnboardingWelcome },
+  data() {
+    return {
+      page: 2
+    }
+  },
+  async fetch({ store, _ }) {
+    await store.dispatch('platforms/fetchPlatforms')
+  },
   methods: {
-    submit() {}
+    nextPage() {
+      // increment page
+      this.page++
+      // animate transition
+    }
   }
 }
 </script>

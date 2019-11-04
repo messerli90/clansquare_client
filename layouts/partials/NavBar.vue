@@ -1,13 +1,9 @@
 <template>
   <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        <img
-          src="https://bulma.io/images/bulma-logo.png"
-          width="112"
-          height="28"
-        />
-      </a>
+      <nuxt-link class="navbar-item" to="/">
+        ClanSquare
+      </nuxt-link>
       <a
         role="button"
         class="navbar-burger burger"
@@ -33,7 +29,7 @@
         </n-link>
       </div>
 
-      <div class="navbar-end">
+      <client-only class="navbar-end">
         <template v-if="!authenticated">
           <div class="navbar-item">
             <div class="buttons">
@@ -47,23 +43,18 @@
           </div>
         </template>
         <template v-if="authenticated">
+          <a href="/" class="navbar-item">
+            {{ user.name }}
+          </a>
           <div class="navbar-item">
             <div class="buttons">
-              <a href="/" class="button is-text">
-                {{ user.name }}
-              </a>
               <a class="button is-light" @click.prevent="logout">
                 Sign Out
               </a>
             </div>
           </div>
         </template>
-        <template v-else>
-          <div class="navbar-item">
-            <div class="buttons"></div>
-          </div>
-        </template>
-      </div>
+      </client-only>
     </div>
   </nav>
 </template>
