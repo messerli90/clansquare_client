@@ -11,10 +11,16 @@
       What would you like to do first?
     </h3>
     <div class="buttons">
-      <button class="button is-primary is-medium">
+      <button
+        class="button is-primary is-medium"
+        @click.prevent="step('createCommunity')"
+      >
         Create a Community
       </button>
-      <button class="button is-secondary is-medium" @click.prevent="player">
+      <button
+        class="button is-secondary is-medium"
+        @click.prevent="step('playerProfile')"
+      >
         Setup Player Profile
       </button>
     </div>
@@ -25,8 +31,11 @@
 <script>
 export default {
   methods: {
-    player() {
-      this.$store.commit('onboarding/set_step', 'playerProfile')
+    step(step) {
+      this.$store.commit('onboarding/set_step', step)
+    },
+    community() {
+      this.$store.commit('onboarding/set_step', 'createCommunity')
     }
   }
 }

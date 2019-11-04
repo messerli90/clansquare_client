@@ -3,12 +3,16 @@ export const state = () => ({
   player: {
     platform: null,
     region: null
-  }
+  },
+  community: {}
 })
 
 export const mutations = {
   set_step(state, step) {
     state.step = step
+  },
+  set_community(state, community) {
+    state.community = community
   },
   set_platform(state, platform) {
     state.player.platform = platform

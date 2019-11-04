@@ -36,13 +36,19 @@
         store-method="set_region"
       ></RegionSelect>
     </div>
-    <div class="player_profile">
-      <button class="button is-large is-primary" @click.prevent="nextStep">
-        Next Step
-      </button>
-      <a @click.prevent="back" class="is-small">
+    <hr />
+    <div class="onboarding__footer">
+      <a class="is-small" @click.prevent="back">
         Back
       </a>
+      <button
+        class="button is-primary"
+        :class="{ 'is-loading': loading }"
+        :disabled="!!loading"
+        @click.prevent="nextStep"
+      >
+        Save &amp; Continue
+      </button>
     </div>
   </div>
 </template>
@@ -52,13 +58,27 @@ import PlatformSelect from '../meta/PlatformSelect'
 import RegionSelect from '../meta/RegionSelect'
 export default {
   components: { PlatformSelect, RegionSelect },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
     back() {
       this.$store.commit('onboarding/set_step', 'welcome')
     },
     nextStep() {
-      // Save changes to API
-      // Next page
+      this.loading = true
+      // const response = await this.$axios
+      //   .post('/communities', this.community)
+      //   .catch((err) => {
+      //     console.error(err)
+      //   })
+      // if (response && response.status === 201) {
+      //   this.$store.commit('onboarding/set_step', 'welcome')
+      //   this.$store.commit('onboarding/set_community', this.community)
+      // }
+      this.loading = false
     }
   }
 }
@@ -92,6 +112,10 @@ export default {
 
     .platform_select {
       padding-top: 1em;
+    }
+
+    .field {
+      max-width: 75%;
     }
   }
 }

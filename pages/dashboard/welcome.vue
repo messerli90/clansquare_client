@@ -8,6 +8,8 @@
               <OnboardingWelcome v-show="step == 'welcome'"></OnboardingWelcome>
               <OnboardingPlayerProfile v-show="step == 'playerProfile'">
               </OnboardingPlayerProfile>
+              <OnboardingCreateCommunity v-show="step == 'createCommunity'">
+              </OnboardingCreateCommunity>
             </div>
             <p class="is-small has-text-centered">
               You can
@@ -27,8 +29,13 @@
 import { mapGetters } from 'vuex'
 import OnboardingWelcome from '~/components/onboarding/Welcome'
 import OnboardingPlayerProfile from '~/components/onboarding/PlayerProfile'
+import OnboardingCreateCommunity from '~/components/onboarding/CreateCommunity'
 export default {
-  components: { OnboardingPlayerProfile, OnboardingWelcome },
+  components: {
+    OnboardingPlayerProfile,
+    OnboardingWelcome,
+    OnboardingCreateCommunity
+  },
   computed: mapGetters({
     step: 'onboarding/get_step',
     player: 'onboarding/get_player'
@@ -40,10 +47,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .hero {
   background: #e52d27;
   background: -webkit-linear-gradient(180deg, #b31217, #e52d27);
   background: linear-gradient(180deg, #b31217, #e52d27);
+}
+.onboarding__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
