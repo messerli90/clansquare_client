@@ -36,13 +36,16 @@ export default {
     OnboardingWelcome,
     OnboardingCreateCommunity
   },
-  computed: mapGetters({
-    step: 'onboarding/get_step',
-    player: 'onboarding/get_player'
-  }),
+  computed: {
+    ...mapGetters({
+      step: 'onboarding/get_step',
+      player: 'onboarding/get_player'
+    })
+  },
   async fetch({ store, _ }) {
     await store.dispatch('platforms/fetchPlatforms')
     await store.dispatch('regions/fetchRegions')
+    await store.dispatch('onboarding/check_user_community')
   }
 }
 </script>

@@ -65,7 +65,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://d1fc2496.ngrok.io/api',
+    baseURL: 'https://94f8c84f.ngrok.io/api',
     // host: 'clansquare_new.test',
     // prefix: 'api/',
     https: true,
@@ -88,7 +88,8 @@ export default {
           user: { url: '/auth/me', method: 'get', propertyName: 'data' }
         },
         tokenRequired: true,
-        tokenType: 'bearer'
+        tokenType: 'bearer',
+        plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js']
       }
     },
     token: {

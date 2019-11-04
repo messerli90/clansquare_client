@@ -18,7 +18,7 @@
         <div class="field">
           <div class="control">
             <input
-              v-model.trim="community.name"
+              v-model.trim="name"
               :class="{ 'is-danger': errors.name }"
               class="input is-medium"
               type="text"
@@ -37,7 +37,7 @@
         <div class="field">
           <div class="control">
             <input
-              v-model.trim="community.short_name"
+              v-model.trim="short_name"
               :class="{ 'is-danger': errors.short_name }"
               class="input is-medium"
               type="text"
@@ -54,7 +54,7 @@
       Talk about your community
     </h6>
     <textarea
-      v-model="community.body"
+      v-model="body"
       :class="{ 'is-danger': errors.body }"
       rows="7"
       class="textarea is-medium"
@@ -83,11 +83,32 @@ export default {
   components: { ValidationErrorHelper },
   data() {
     return {
-      loading: false,
-      community: {
-        name: '',
-        short_name: '',
-        body: ''
+      loading: false
+    }
+  },
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.onboarding.community.name
+      },
+      set(value) {
+        this.$store.commit('onboarding/set_community_name', value)
+      }
+    },
+    short_name: {
+      get() {
+        return this.$store.state.onboarding.community.short_name
+      },
+      set(value) {
+        this.$store.commit('onboarding/set_community_short_name', value)
+      }
+    },
+    body: {
+      get() {
+        return this.$store.state.onboarding.community.body
+      },
+      set(value) {
+        this.$store.commit('onboarding/set_community_body', value)
       }
     }
   },
@@ -97,14 +118,11 @@ export default {
     },
     async saveCommunity() {
       this.loading = true
-      const response = await this.$axios
-        .post('/communities', this.community)
-        .catch((err) => {
-          console.error(err)
-        })
-      if (response && response.status === 201) {
+      const saved = await this.$store.dispatch(
+        'onboarding/createOrUpdateCommunity'
+      )
+      if (saved !== false) {
         this.$store.commit('onboarding/set_step', 'welcome')
-        this.$store.commit('onboarding/set_community', this.community)
       }
       this.loading = false
     }
