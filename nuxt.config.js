@@ -111,7 +111,7 @@ export default {
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons', // Solid icons
-        icons: ['faEnvelope', 'faHeart', 'faLock', 'faGamepad']
+        icons: ['faEnvelope', 'faHeart', 'faLock', 'faGamepad', 'faGlobe']
       },
       {
         set: '@fortawesome/free-brands-svg-icons', // Brand icons
