@@ -4,19 +4,18 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-9-tablet is-8-desktop is-7-widescreen">
-            <div class="box">
-              <OnboardingWelcome v-show="step == 'welcome'"></OnboardingWelcome>
-              <OnboardingPlayerProfile v-show="step == 'playerProfile'">
-              </OnboardingPlayerProfile>
-              <OnboardingCreateCommunity v-show="step == 'createCommunity'">
-              </OnboardingCreateCommunity>
+            <div class="box onboarding">
+              <OnboardingWelcome v-show="type == 'welcome'"></OnboardingWelcome>
+              <OnboardingPlayer v-show="type == 'player'"></OnboardingPlayer>
+              <OnboardingCommunity v-show="type == 'community'">
+              </OnboardingCommunity>
             </div>
             <p class="is-small has-text-centered">
               You can
               <nuxt-link to="/dashboard">
                 skip
               </nuxt-link>
-              this step and go straight to your profile
+              this step and go straight to your dashboard
             </p>
           </div>
         </div>
@@ -26,26 +25,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import OnboardingWelcome from '~/components/onboarding/Welcome'
-import OnboardingPlayerProfile from '~/components/onboarding/PlayerProfile'
-import OnboardingCreateCommunity from '~/components/onboarding/CreateCommunity'
+import OnboardingPlayer from '~/components/onboarding/PlayerProfile'
+import OnboardingCommunity from '~/components/onboarding/Community'
 export default {
   components: {
-    OnboardingPlayerProfile,
+    OnboardingPlayer,
     OnboardingWelcome,
-    OnboardingCreateCommunity
+    OnboardingCommunity
   },
   computed: {
-    ...mapGetters({
-      step: 'onboarding/get_step',
-      player: 'onboarding/get_player'
-    })
+    type() {
+      return this.$store.getters['onboarding/get_type']
+    }
   },
   async fetch({ store, _ }) {
-    await store.dispatch('platforms/fetchPlatforms')
-    await store.dispatch('regions/fetchRegions')
-    await store.dispatch('onboarding/check_user_community')
+    await Promise.all([
+      store.dispatch('onboarding/check_user_community'),
+      store.dispatch('platforms/fetchPlatforms'),
+      store.dispatch('regions/fetchRegions')
+    ])
   }
 }
 </script>
@@ -55,6 +54,42 @@ export default {
   background: #e52d27;
   background: -webkit-linear-gradient(180deg, #b31217, #e52d27);
   background: linear-gradient(180deg, #b31217, #e52d27);
+}
+.onboarding {
+  .title {
+    font-size: 2.6rem;
+    line-height: 1.25;
+  }
+  h3.onboarding__title {
+    font-size: 1.3rem;
+  }
+
+  h6.onbording__subtitle {
+    font-weight: 200;
+  }
+
+  // .field {
+  //   padding: 0.5em 0 0 0;
+  //   max-width: 75%;
+  // }
+  .onboarding__content {
+    .title {
+      font-size: 2.6rem;
+      line-height: 1.25;
+    }
+    .onboarding__body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      padding: 0 0 3em 0;
+
+      &:last-of-type {
+        padding: 0;
+      }
+    }
+  }
 }
 .onboarding__footer {
   display: flex;

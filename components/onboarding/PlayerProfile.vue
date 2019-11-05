@@ -36,28 +36,20 @@
         store-method="set_region"
       ></RegionSelect>
     </div>
-    <hr />
-    <div class="onboarding__footer">
-      <a class="is-small" @click.prevent="back">
-        Back
-      </a>
-      <button
-        class="button is-primary"
-        :class="{ 'is-loading': loading }"
-        :disabled="!!loading"
-        @click.prevent="nextStep"
-      >
-        Save &amp; Continue
-      </button>
-    </div>
+    <Footer
+      prev-step="type"
+      next-step="info"
+      store-method="onboarding"
+    ></Footer>
   </div>
 </template>
 
 <script>
 import PlatformSelect from '../meta/PlatformSelect'
 import RegionSelect from '../meta/RegionSelect'
+import Footer from '~/components/onboarding/Footer'
 export default {
-  components: { PlatformSelect, RegionSelect },
+  components: { PlatformSelect, RegionSelect, Footer },
   data() {
     return {
       loading: false

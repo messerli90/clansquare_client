@@ -39,9 +39,12 @@ export default {
         return ''
       }
     },
-    store: {
-      type: String,
-      required: true
+    initial: {
+      type: Number,
+      required: false,
+      default: () => {
+        return null
+      }
     },
     storeMethod: {
       type: String,
@@ -55,21 +58,18 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      selectedPlatform: ''
-    }
+  computed: {
+    selectedPlatform() {
+      return this.initial ? this.initial : ''
+    },
+    ...mapGetters({
+      platforms: 'platforms/get_all'
+    })
   },
-  computed: mapGetters({
-    platforms: 'platforms/get_all'
-  }),
   methods: {
     handleChange() {
       // Use prop to define which store to send data to
-      this.$store.commit(
-        `${this.store}/${this.storeMethod}`,
-        this.selectedPlatform
-      )
+      this.$store.commit(this.storeMethod, this.selectedPlatform)
     }
   }
 }

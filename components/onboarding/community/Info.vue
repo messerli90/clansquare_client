@@ -1,18 +1,11 @@
 <template>
-  <div class="onboarding__body--create">
-    <h1 class="title has-text-centered">
-      A Brand New Community
-    </h1>
-    <h2 class="subtitle has-text-centered">
-      Let's create your community
-    </h2>
-    <hr />
-    <div class="onboarding_create_community__info columns">
+  <div>
+    <div class="columns">
       <div class="column is-three-quarters">
-        <h3>
+        <h3 class="onboarding__title">
           Community Name
         </h3>
-        <h6>
+        <h6 class="onboarding__subtitle">
           You need a name
         </h6>
         <div class="field">
@@ -28,10 +21,10 @@
         </div>
       </div>
       <div class="column is-one-quarter">
-        <h3>
+        <h3 class="onboarding__title">
           Tag
         </h3>
-        <h6>
+        <h6 class="onboarding__subtitle">
           Short name
         </h6>
         <div class="field">
@@ -47,10 +40,10 @@
         </div>
       </div>
     </div>
-    <h3>
+    <h3 class="onboarding__title">
       Bio
     </h3>
-    <h6>
+    <h6 class="onboarding__subtitle">
       Talk about your community
     </h6>
     <div class="field">
@@ -64,32 +57,18 @@
       </div>
     </div>
     <ValidationErrorHelper :error-bag="errors" field="body" />
-    <hr />
-    <div class="onboarding__footer">
-      <a class="is-small" @click.prevent="back">
-        Back
-      </a>
-      <button
-        class="button is-primary"
-        :class="{ 'is-loading': loading }"
-        :disabled="!!loading"
-        @click.prevent="saveCommunity"
-      >
-        Save &amp; Continue
-      </button>
-    </div>
+    <Footer
+      prev-step="type"
+      next-step="region"
+      store-method="onboarding/createOrUpdateCommunity"
+    ></Footer>
   </div>
 </template>
-
 <script>
+import Footer from '~/components/onboarding/Footer'
 import ValidationErrorHelper from '~/components/validation/ValidationErrorHelper'
 export default {
-  components: { ValidationErrorHelper },
-  data() {
-    return {
-      loading: false
-    }
-  },
+  components: { ValidationErrorHelper, Footer },
   computed: {
     name: {
       get() {
@@ -115,41 +94,6 @@ export default {
         this.$store.commit('onboarding/set_community_body', value)
       }
     }
-  },
-  methods: {
-    back() {
-      this.$store.commit('onboarding/set_step', 'welcome')
-    },
-    async saveCommunity() {
-      this.loading = true
-      const saved = await this.$store.dispatch(
-        'onboarding/createOrUpdateCommunity'
-      )
-      if (saved !== false) {
-        this.$store.commit('onboarding/set_step', 'regionCommunity')
-      }
-      this.loading = false
-    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.onboarding__body--create {
-  .title {
-    font-size: 2.6rem;
-    line-height: 1.25;
-  }
-  h3 {
-    font-size: 1.3rem;
-  }
-
-  h6 {
-    font-weight: 200;
-  }
-
-  .field {
-    padding: 0.5em 0;
-  }
-}
-</style>

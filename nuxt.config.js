@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -65,9 +67,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://94f8c84f.ngrok.io/api',
-    // host: 'clansquare_new.test',
-    // prefix: 'api/',
+    baseURL: process.env.AXIOS_BASE_URL,
     https: true,
     progress: true
   },

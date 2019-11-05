@@ -1,29 +1,32 @@
 <template>
-  <div class="onboarding__welcome">
-    <h1 class="title has-text-centered">
+  <div class="onboarding__welcome has-text-centered">
+    <h1 class="title">
       Welcome
     </h1>
-    <h2 class="subtitle has-text-centered">
+    <h2 class="subtitle">
       You're about to set up your ClanSquare profile
     </h2>
     <hr />
-    <h3 class="subtitle has-text-centered">
-      What would you like to do first?
+    <h3 class="subtitle">
+      What describes you best?
     </h3>
     <div class="buttons">
       <button
-        class="button is-primary is-medium"
-        @click.prevent="step('createCommunity')"
+        class="button is-link is-large"
+        @click.prevent="setType('community')"
       >
-        Create a Community
+        Community Owner
       </button>
       <button
-        class="button is-secondary is-medium"
-        @click.prevent="step('playerProfile')"
+        class="button is-primary is-large"
+        @click.prevent="setType('player')"
       >
-        Setup Player Profile
+        Player
       </button>
     </div>
+    <p class="is-small">
+      This is just a helpful
+    </p>
     <form action="#" @submit.prevent="submit"></form>
   </div>
 </template>
@@ -31,11 +34,8 @@
 <script>
 export default {
   methods: {
-    step(step) {
-      this.$store.commit('onboarding/set_step', step)
-    },
-    community() {
-      this.$store.commit('onboarding/set_step', 'createCommunity')
+    setType(type) {
+      this.$store.commit('onboarding/set_type', type)
     }
   }
 }

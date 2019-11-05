@@ -1,15 +1,20 @@
 export const state = () => ({
-  step: 'welcome',
-  player: {
-    platform: null,
-    region: null
-  },
+  step: 'info',
+  type: 'welcome',
+  loading: false,
+  player: {},
   community: {}
 })
 
 export const mutations = {
   set_step(state, step) {
     state.step = step
+  },
+  set_type(state, type) {
+    state.type = type
+  },
+  set_loading(state, loading) {
+    state.loading = loading
   },
   set_community(state, community) {
     state.community = community
@@ -28,6 +33,12 @@ export const mutations = {
   },
   set_community_body(state, body) {
     state.community.body = body
+  },
+  set_community_region(state, regionId) {
+    state.community.region_id = regionId
+  },
+  set_community_platform(state, platformId) {
+    state.community.platform_id = platformId
   }
 }
 
@@ -35,8 +46,17 @@ export const getters = {
   get_player(state) {
     return state.player
   },
+  get_community(state) {
+    return state.community
+  },
   get_step(state) {
     return state.step
+  },
+  get_type(state) {
+    return state.type
+  },
+  get_loading(state) {
+    return state.loading
   }
 }
 
