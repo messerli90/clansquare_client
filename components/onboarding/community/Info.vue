@@ -72,7 +72,7 @@ export default {
   computed: {
     name: {
       get() {
-        return this.$store.state.onboarding.community.name
+        return this.$store.getters['onboarding/get_community_name']
       },
       set(value) {
         this.$store.commit('onboarding/set_community_name', value)
@@ -80,7 +80,7 @@ export default {
     },
     short_name: {
       get() {
-        return this.$store.state.onboarding.community.short_name
+        return this.$store.getters['onboarding/get_community_short_name']
       },
       set(value) {
         this.$store.commit('onboarding/set_community_short_name', value)
@@ -88,7 +88,7 @@ export default {
     },
     body: {
       get() {
-        return this.$store.state.onboarding.community.body
+        return this.$store.getters['onboarding/get_community_body']
       },
       set(value) {
         this.$store.commit('onboarding/set_community_body', value)

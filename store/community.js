@@ -1,76 +1,45 @@
 export const state = () => ({
-  step: 'info',
-  type: 'welcome',
-  loading: false,
-  player: {},
   community: {
+    id: null,
     name: null,
     short_name: null,
+    slug: null,
     body: null,
-    region_id: null
+    minimum_age: null,
+    website_url: null,
+    facebook_url: null,
+    twitter_url: null,
+    twitch_url: null,
+    youtube_url: null,
+    steamgroup_url: null,
+    avatar_url: null,
+    avatar_thumb_url: null,
+    banner_url: null,
+    banner_thumb_url: null,
+    has_discord: false,
+    has_teamspeak: false,
+    has_gameserver: false,
+    has_events: false,
+    view_count: null,
+    owner_id: null,
+    region_id: null,
+    platform_id: null,
+    invite_code: null,
+    created_at: null,
+    updated_at: null,
+    deleted_at: null
   }
 })
 
 export const mutations = {
-  set_step(state, step) {
-    state.step = step
-  },
-  set_type(state, type) {
-    state.type = type
-  },
-  set_loading(state, loading) {
-    state.loading = loading
-  },
   set_community(state, community) {
     state.community = community
-  },
-  set_platform(state, platform) {
-    state.player.platform = platform
-  },
-  set_region(state, region) {
-    state.player.region = region
-  },
-  set_community_name(state, name) {
-    state.community.name = name
-  },
-  set_community_short_name(state, shortName) {
-    state.community.short_name = shortName
-  },
-  set_community_body(state, body) {
-    state.community.body = body
-  },
-  set_community_region(state, regionId) {
-    state.community.region_id = regionId
-  },
-  set_community_platform(state, platformId) {
-    state.community.platform_id = platformId
   }
 }
 
 export const getters = {
-  get_player(state) {
-    return state.player
-  },
   get_community(state) {
     return state.community
-  },
-  get_community_name(state) {
-    return state.community.name
-  },
-  get_community_short_name(state) {
-    return state.community.short_name
-  },
-  get_community_body(state) {
-    return state.community.body
-  },
-  get_step(state) {
-    return state.step
-  },
-  get_type(state) {
-    return state.type
-  },
-  get_loading(state) {
-    return state.loading
   }
 }
 

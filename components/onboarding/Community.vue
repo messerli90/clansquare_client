@@ -1,7 +1,7 @@
 <template>
   <div class="onboarding__community">
     <h1 class="title has-text-centered">
-      A Brand New Community
+      {{ title }}
     </h1>
     <h2 class="subtitle has-text-centered">
       Let's create your community
@@ -20,10 +20,22 @@ import Region from '~/components/onboarding/community/Region'
 import Platform from '~/components/onboarding/community/Platform'
 export default {
   components: { Info, Region, Platform },
-  computed: mapGetters({
-    step: 'onboarding/get_step',
-    loading: 'onboarding/get_loading'
-  })
+  computed: {
+    title() {
+      console.log(this.community)
+      let title = 'A Brand New Community'
+      // if (Object.entries(this.community).length === 0 
+      //   && this.community.constructor === Object) {
+      //   title = this.community.name
+      // }
+      return title
+    },
+    ...mapGetters({
+      step: 'onboarding/get_step',
+      loading: 'onboarding/get_loading',
+      community: 'onboarding/get_community'
+    })
+  }
 }
 </script>
 
